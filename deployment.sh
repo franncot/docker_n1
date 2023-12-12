@@ -5,7 +5,7 @@ red="\e[0;91m"
 green="\e[0;92m"
 bold="\e[1m"
 reset="\e[0m"
-REPO="295topics-fullstack"
+REPO="docker_n1"
 
 #Priviledges
 #if [ "$EUID" -ne 0 ]; then
@@ -68,10 +68,12 @@ check_application() {
     else
         echo -e "${red}${bold}Aplicacion no instalada. Iniciando Docker Compose...☒ Deployment en progreso...${reset}"
         cd  $REPO >/dev/null 2>&1
-        docker compose --env-file .env.dev up -d --build
+        docker compose up -d --build
         sleep 5
         echo -e "${green}${bold}Todos los container inicializados puedes probar el ambiente con curl http://localhost:5000/api/topics  - Listo  ☑ ${reset}"
         #send_discord_notification
+        sleep 5
+        docker container ls -a
     fi
 }
 
