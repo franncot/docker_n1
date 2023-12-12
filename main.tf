@@ -56,6 +56,6 @@ resource "aws_instance" "fullStack" {
     user_data = file("deployment.sh")
     security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name]
     tags = {
-    Name  = fullStackDocker
+    Name  = "fullStackDocker"
   }
 }
