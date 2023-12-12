@@ -11,6 +11,7 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
+
 resource "aws_security_group" "allow_ssh" {
   name        = "allow-ssh-from-anywhere"
   description = "Allow SSH inbound "
@@ -28,7 +29,7 @@ resource "aws_instance" "fullStack" {
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.id]
+    security_groups = [aws_security_group.allow_ssh.name]
     tags = {
     Name  = var.ec2_name
   }
