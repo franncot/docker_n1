@@ -74,6 +74,12 @@ check_application() {
         #send_discord_notification
         sleep 5
         docker container ls -a
+        echo
+        echo
+        curl http://localhost:5000/api/topics
+        echo
+        echo
+        curl http://localhost:3000
     fi
 }
 
