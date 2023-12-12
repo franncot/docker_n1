@@ -29,8 +29,7 @@ fi
 sudo apt update >/dev/null 2>&1
 
 #Installing docker newest version
-for component in "${components[@]}"; do
-    if dpkg -s docker-ce >/dev/null 2>&1; then
+if dpkg -s docker-ce >/dev/null 2>&1; then
         echo -e "${green}${bold}$component instalado ☑ ${reset}"
         echo
     else
@@ -38,12 +37,11 @@ for component in "${components[@]}"; do
         echo
         curl -fsSL https://get.docker.com -o install-docker.sh
         chmod +x install-docker.sh
-        sh install-docker.sh
+        sh install-docker.sh >/dev/null 2>&1;
         echo -e "${green}${bold}$component instalación completa ☑ ${reset}"
         echo
 		
     fi
-done
 
 # remove old unused docker images,networks,volumes,containers
 docker system prune -af >/dev/null 2>&1
