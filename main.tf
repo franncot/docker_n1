@@ -15,7 +15,7 @@ provider "aws" {
 resource "aws_instance" "fullStack" {
     ami = "ami-0fc5d935ebf8bc3bc"
     instance_type = "t2.micro"
-    **user_data = file("deployment.sh")**
+    user_data = file("deployment.sh")
     tags = { 
     Name  = "fullstack"
   }
