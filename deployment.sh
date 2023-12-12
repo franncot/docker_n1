@@ -47,9 +47,6 @@ for component in "${components[@]}"; do
     fi
 done
 
-#istal curl for testing
-sudo apt install curl >/dev/null 2>&1
-
 #Discord notification
 send_discord_notification() {
     DISCORD="https://discord.com/api/webhooks/1154865920741752872/au1jkQ7v9LgQJ131qFnFqP-WWehD40poZJXRGEYUDErXHLQJ_BBszUFtVj8g3pu9bm7h"
@@ -74,7 +71,7 @@ check_application() {
         docker compose --env-file .env.dev up -d --build
         sleep 5
         echo -e "${green}${bold}Todos los container inicializados puedes probar el ambiente con curl http://localhost:5000/api/topics  - Listo  ☑ ${reset}"
-        send_discord_notification
+        #send_discord_notification
     fi
 }
 

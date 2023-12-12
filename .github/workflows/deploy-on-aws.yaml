@@ -35,4 +35,8 @@ jobs:
             docker push ${{ secrets.REPO_URI }}$DIR
             cd -
           done
+#Deployment
+      - name: Deploy to AWS ECS
+        run: |
+          bash ./deployment.sh
 
