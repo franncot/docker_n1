@@ -26,7 +26,7 @@ else
 fi
 
 # remove old unused docker images,networks,volumes,containers
-docker system prune -af
+docker system prune -af >/dev/null 2>&1
 
 #Update
 sudo apt update >/dev/null 2>&1
@@ -80,6 +80,8 @@ check_application() {
         echo
         echo
         curl http://localhost:3000
+        echo
+        echo
     fi
 }
 
