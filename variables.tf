@@ -1,4 +1,4 @@
 variable "ec2_name" {
   type = string
-  default = "FullStackDocker"
+  default = "FullStack-Docker"
 }

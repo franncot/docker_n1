@@ -39,8 +39,9 @@ for component in "${components[@]}"; do
     else
         echo -e "${red}${bold}$component no instalado ☒ instalación en progreso...${reset}"
         echo
-        chmod +x ./docker.sh >/dev/null 2>&1
-        ./docker.sh >/dev/null 2>&1
+        curl -fsSL https://get.docker.com -o install-docker.sh
+        chmod +x install-docker.sh
+        sh install-docker.sh
         echo -e "${green}${bold}$component instalación completa ☑ ${reset}"
         echo
 		
