@@ -24,12 +24,26 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+resource "aws_security_group" "allow_https_outbound" {
+  name        = "allow-https-outbound"
+  description = "Allow outbound HTTPS traffic"
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic to any destination on port 443
+  }
+}
+
+
 resource "aws_instance" "fullStack" {
     ami = "ami-0fc5d935ebf8bc3bc"
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
     security_groups = [aws_security_group.allow_ssh.name]
+    security_groups = [aws_security_group.allow_https_outbound.name]
     tags = {
     Name  = var.ec2_name
   }
