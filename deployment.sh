@@ -25,9 +25,6 @@ else
      echo -e "${green}${bold}Repo Clonado -  Listo ☑ ${reset}"
 fi
 
-# remove old unused docker images,networks,volumes,containers
-docker system prune -af >/dev/null 2>&1
-
 #Update
 sudo apt update >/dev/null 2>&1
 
@@ -47,6 +44,9 @@ for component in "${components[@]}"; do
 		
     fi
 done
+
+# remove old unused docker images,networks,volumes,containers
+docker system prune -af >/dev/null 2>&1
 
 #Discord notification
 send_discord_notification() {

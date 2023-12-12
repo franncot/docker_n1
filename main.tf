@@ -36,14 +36,26 @@ resource "aws_security_group" "allow_https_outbound" {
   }
 }
 
+resource "aws_security_group" "allow_http_outbound" {
+  name        = "allow-http-outbound"
+  description = "Allow outbound HTTP traffic"
+
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic to any destination on port 80
+  }
+}
+
 
 resource "aws_instance" "fullStack" {
     ami = "ami-0fc5d935ebf8bc3bc"
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name]
+    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, allow_http_outbound]
     tags = {
-    Name  = var.ec2_name
+    Name  = fullStackDocker
   }
 }
