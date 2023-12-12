@@ -42,8 +42,7 @@ resource "aws_instance" "fullStack" {
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.name]
-    security_groups = [aws_security_group.allow_https_outbound.name]
+    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name]
     tags = {
     Name  = var.ec2_name
   }
