@@ -8,10 +8,10 @@ reset="\e[0m"
 REPO="295topics-fullstack"
 
 #Priviledges
-if [ "$EUID" -ne 0 ]; then
-    echo -e "${red}${bold}Este script requiere priviledgios de administrador para ser ejecutado. Por favor usa Sudo o Root. ☒ ${reset}"
-    exit 1
-fi
+#if [ "$EUID" -ne 0 ]; then
+#    echo -e "${red}${bold}Este script requiere priviledgios de administrador para ser ejecutado. Por favor usa Sudo o Root. ☒ ${reset}"
+#    exit 1
+#fi
 
 if [ -d "$REPO/.git" ]; then
      echo -e "${green}${bold}El repositorio FullStack topics ya existe, realizando git pull...${reset}"

@@ -25,7 +25,7 @@ services:
       - 295network
 
   backend:
-    image: franncot/backend:v2
+    image: public.ecr.aws/l3m9u0h1/backend:latest
     container_name: backend
     ports:
       - "5000:5000"
@@ -35,7 +35,7 @@ services:
       - 295network
 
   frontend:
-    image: franncot/frontend:v2
+    image: public.ecr.aws/l3m9u0h1/frontend:latest
     container_name: frontend
     ports:
       - "3000:3000"
