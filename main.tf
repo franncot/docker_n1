@@ -72,12 +72,24 @@ resource "aws_security_group" "allow_http_inbound_frontend" {
   }
 }
 
+resource "aws_security_group" "allow_http_inbound_mongoexpress" {
+  name        = "allow-http-inbound-mongoexpress-from-anywhere"
+  description = "Allow http inbound for Mongo express port 27017"
+
+  ingress {
+    from_port   = 27017
+    to_port     = 27017
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "fullStack" {
     ami = "ami-0fc5d935ebf8bc3bc"
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name, aws_security_group.allow_http_inbound_backend.name, aws_security_group.allow_http_inbound_frontend.name]
+    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name, aws_security_group.allow_http_inbound_backend.name, aws_security_group.allow_http_inbound_frontend.name, aws_security_group.allow_http_inbound_mongoexpress.name]
     tags = {
     Name  = "fullStackDocker"
   }
