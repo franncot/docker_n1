@@ -7,12 +7,13 @@ bold="\e[1m"
 reset="\e[0m"
 REPO="docker_n1"
 
-#Priviledges
+#Priviledges not require on the AWS EC2 instance
 #if [ "$EUID" -ne 0 ]; then
 #    echo -e "${red}${bold}Este script requiere priviledgios de administrador para ser ejecutado. Por favor usa Sudo o Root. ☒ ${reset}"
 #    exit 1
 #fi
 
+#Check if repo exist
 if [ -d "$REPO/.git" ]; then
      echo -e "${green}${bold}El repositorio FullStack topics ya existe, realizando git pull...${reset}"
      cd $REPO
@@ -39,9 +40,8 @@ if dpkg -s docker-ce >/dev/null 2>&1; then
         chmod +x install-docker.sh
         sh install-docker.sh >/dev/null 2>&1;
         echo -e "${green}${bold}$component instalación completa ☑ ${reset}"
-        echo
-		
-    fi
+        echo	
+fi
 
 # remove old unused docker images,networks,volumes,containers
 docker system prune -af >/dev/null 2>&1
@@ -49,7 +49,7 @@ docker system prune -af >/dev/null 2>&1
 #Discord notification
 send_discord_notification() {
     DISCORD="https://discord.com/api/webhooks/1154865920741752872/au1jkQ7v9LgQJ131qFnFqP-WWehD40poZJXRGEYUDErXHLQJ_BBszUFtVj8g3pu9bm7h"
-    MESSAGE="Docker Compose ha sido ejecutado correctamente. Puedes validar en http://localhost:5000/api/topics"
+    MESSAGE="Tu Ambiente esta listo!. Puedes validar en http://localhost:5000/api/topics"
 
     curl -X POST -H "Content-Type: application/json" \
          -d '{
@@ -70,7 +70,6 @@ check_application() {
         docker compose up -d --build
         sleep 5
         echo -e "${green}${bold}Todos los container inicializados puedes probar el ambiente con curl http://localhost:5000/api/topics  - Listo  ☑ ${reset}"
-        #send_discord_notification
         sleep 5
         docker container ls -a
         echo
@@ -81,6 +80,7 @@ check_application() {
         curl http://localhost:3000
         echo
         echo
+        send_discord_notification
     fi
 }
 
