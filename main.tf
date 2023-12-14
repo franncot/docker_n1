@@ -62,7 +62,7 @@ resource "aws_instance" "fullStack" {
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_Full_Stack.name]
+    security_groups = [aws_security_group.allow_full_stack.name]
     tags = {
     Name  = "fullStackDocker"
   }
