@@ -77,7 +77,7 @@ resource "aws_instance" "fullStack" {
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name, aws_security_group.allow_http_inbound_backend, aws_security_group.allow_http_inbound_frontend]
+    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name, aws_security_group.allow_http_inbound_backend.name, aws_security_group.allow_http_inbound_frontend.name]
     tags = {
     Name  = "fullStackDocker"
   }
