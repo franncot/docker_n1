@@ -67,19 +67,10 @@ check_application() {
     else
         echo -e "${red}${bold}Aplicacion no instalada. Iniciando Docker Compose...☒ Deployment en progreso...${reset}"
         cd  $REPO >/dev/null 2>&1
-        docker compose up -d --build
+        docker compose up -d >/dev/null 2>&1
         sleep 5
         echo -e "${green}${bold}Todos los container inicializados puedes probar el ambiente con curl http://localhost:5000/api/topics  - Listo  ☑ ${reset}"
         sleep 5
-        docker container ls -a
-        echo
-        echo
-        curl http://localhost:5000/api/topics
-        echo
-        echo
-        curl http://localhost:3000
-        echo
-        echo
         send_discord_notification
     fi
 }

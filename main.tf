@@ -48,13 +48,36 @@ resource "aws_security_group" "allow_http_outbound" {
   }
 }
 
+resource "aws_security_group" "allow_http_inbound_backend" {
+  name        = "allow-http-inbound-backend-from-anywhere"
+  description = "Allow http inbound for backend port 5000"
+
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "allow_http_inbound_frontend" {
+  name        = "allow-http-inbound-frontend-from-anywhere"
+  description = "Allow http inbound for frontend port 3000"
+
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 resource "aws_instance" "fullStack" {
     ami = "ami-0fc5d935ebf8bc3bc"
     instance_type = "t2.micro"
     key_name = "fullstack"
     user_data = file("deployment.sh")
-    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name]
+    security_groups = [aws_security_group.allow_ssh.name, aws_security_group.allow_https_outbound.name, aws_security_group.allow_http_outbound.name, aws_security_group.allow_http_inbound_backend, aws_security_group.allow_http_inbound_frontend]
     tags = {
     Name  = "fullStackDocker"
   }
