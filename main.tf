@@ -35,8 +35,8 @@ resource "aws_security_group" "allow_full_stack" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 27017
-    to_port     = 27017
+    from_port   = 8081
+    to_port     = 8081
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
